@@ -1,18 +1,15 @@
-# Gradle files
-.gradle/
-build/
-local.properties
-
-# Android Studio files
-.idea/
 *.iml
-
-# Log files
-*.log
-
-# OS files
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
 .DS_Store
-Thumbs.db
-
-# User-specific files
-*.swp
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties

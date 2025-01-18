@@ -1,7 +1,5 @@
 package com.example.mixfix
-
-// Represents a level in the game
 data class Level(
-    val number: Int,       // The level number (e.g., 1, 2, 3, ...)
-    val isLocked: Boolean  // Whether the level is locked or not
+    val word: String = "",               // Word for the level (e.g., "book", "tree")
+    val letters: List<String> = listOf()  // List of letters (e.g., ["B", "O", "O", "K"])
 )
