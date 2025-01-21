@@ -1,0 +1,114 @@
+{
+  "chapters": [
+    {
+      "name": "Chapter 1",
+      "levels": [
+        {
+          "name": "Level 1",
+          "word": "apple",
+          "letters": "a,p,p,l,e"
+        },
+        {
+          "name": "Level 2",
+          "word": "banana",
+          "letters": "b,a,n,a,n,a"
+        },
+        {
+          "name": "Level 3",
+          "word": "cherry",
+          "letters": "c,h,e,r,r,y"
+        },
+        {
+          "name": "Level 4",
+          "word": "date",
+          "letters": "d,a,t,e"
+        },
+        {
+          "name": "Level 5",
+          "word": "elderberry",
+          "letters": "e,l,d,e,r,b,e,r,r,y"
+        },
+        {
+          "name": "Level 6",
+          "word": "fig",
+          "letters": "f,i,g"
+        },
+        {
+          "name": "Level 7",
+          "word": "grape",
+          "letters": "g,r,a,p,e"
+        },
+        {
+          "name": "Level 8",
+          "word": "honeydew",
+          "letters": "h,o,n,e,y,d,e,w"
+        },
+        {
+          "name": "Level 9",
+          "word": "kiwi",
+          "letters": "k,i,w,i"
+        },
+        {
+          "name": "Level 10",
+          "word": "lemon",
+          "letters": "l,e,m,o,n"
+        }
+      ]
+    },
+    {
+      "name": "Chapter 2",
+      "levels": [
+        {
+          "name": "Level 1",
+          "word": "orange",
+          "letters": "o,r,a,n,g,e"
+        },
+        {
+          "name": "Level 2",
+          "word": "melon",
+          "letters": "m,e,l,o,n"
+        },
+        {
+          "name": "Level 3",
+          "word": "pear",
+          "letters": "p,e,a,r"
+        },
+        {
+          "name": "Level 4",
+          "word": "plum",
+          "letters": "p,l,u,m"
+        },
+        {
+          "name": "Level 5",
+          "word": "peach",
+          "letters": "p,e,a,c,h"
+        },
+        {
+          "name": "Level 6",
+          "word": "apple",
+          "letters": "a,p,p,l,e"
+        },
+        {
+          "name": "Level 7",
+          "word": "banana",
+          "letters": "b,a,n,a,n,a"
+        },
+        {
+          "name": "Level 8",
+          "word": "grape",
+          "letters": "g,r,a,p,e"
+        },
+        {
+          "name": "Level 9",
+          "word": "plum",
+          "letters": "p,l,u,m"
+        },
+        {
+          "name": "Level 10",
+          "word": "cherry",
+          "letters": "c,h,e,r,r,y"
+        }
+      ]
+    }
+  ]
+}
