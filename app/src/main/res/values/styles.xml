@@ -1,0 +1,35 @@
+<resources>
+    <!-- Loki theme -->
+    <style name="Theme.Loki" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/loki_primary</item>
+        <item name="colorPrimaryDark">@color/loki_primary_dark</item>
+        <item name="colorAccent">@color/loki_accent</item>
+        <item name="android:windowBackground">@color/loki_background</item> <!-- Set the background color for Loki -->
+        <item name="buttonStyle">@style/LokiButton</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <!-- Loki button style -->
+    <style name="LokiButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Thor theme -->
+    <style name="Theme.Thor" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/thor_primary</item>
+        <item name="colorPrimaryDark">@color/thor_primary_dark</item>
+        <item name="colorAccent">@color/thor_accent</item>
+        <item name="android:windowBackground">@color/thor_background</item> <!-- Set the background color for Thor -->
+        <item name="buttonStyle">@style/ThorButton</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <!-- Thor button style -->
+    <style name="ThorButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Define the background colors for Loki and Thor -->
+    <color name="loki_background">#D3FFD3</color> <!-- Light Green Background for Loki -->
+    <color name="thor_background">#B0B0FF</color> <!-- Light Blue Background for Thor -->
+</resources>
