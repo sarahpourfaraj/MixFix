@@ -1,9 +1,15 @@
 package com.example.mixfix
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import android.widget.Button
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 class StartActivity : AppCompatActivity() {
 
@@ -11,12 +17,50 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        // Find the button by ID
-        val btnStart: Button = findViewById(R.id.btnStart)
+        Log.d("StartActivity", "StartActivity created") // Add logging
 
-        // Set a click listener for navigation
+        // Start Button
+        val btnStart: Button = findViewById(R.id.btnStart)
         btnStart.setOnClickListener {
+            Log.d("StartActivity", "Start button clicked") // Add logging
             val intent = Intent(this, LevelSelectionActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Theme Toggle Button
+        val btnThemeToggle: Button = findViewById(R.id.btnThemeToggle)
+        btnThemeToggle.setOnClickListener {
+            val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            when (currentNightMode) {
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            }
+            recreate()
+        }
+
+        // Hyperlink Icons
+        val ivGitHub: ImageView = findViewById(R.id.ivGitHub)
+        val ivGmail: ImageView = findViewById(R.id.ivGmail)
+        val ivLinkedIn: ImageView = findViewById(R.id.ivLinkedIn)
+
+        ivGitHub.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/yourusername"))
+            startActivity(intent)
+        }
+
+        ivGmail.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:youremail@example.com")
+            }
+            startActivity(intent)
+        }
+
+        ivLinkedIn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/yourprofile"))
             startActivity(intent)
         }
     }
