@@ -2,148 +2,64 @@ package com.example.mixfix
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.*
 
 class LevelSelectionActivity : AppCompatActivity() {
 
-    private lateinit var database: DatabaseReference
-    private lateinit var rvLevels: RecyclerView
-    private lateinit var levelAdapter: LevelAdapter
+    private lateinit var dbHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level_selection)
 
-        // Initialize Firebase reference
-        database = FirebaseDatabase.getInstance().reference
+        // Initialize DatabaseHelper
+        dbHelper = DatabaseHelper(this)
 
-        // Initialize RecyclerView
-        rvLevels = findViewById(R.id.rvLevels)
-        rvLevels.layoutManager = GridLayoutManager(this, 3)  // 3 columns
+        // Import JSON data if the database is empty
+        if (!dbHelper.isDatabasePopulated()) {
+            val jsonDataImporter = JsonDataImporter(this, dbHelper)
+            jsonDataImporter.importData()
+        }
 
-        // Fetch levels from Firebase
-        fetchLevelsFromFirebase()
+        // Fetch chapters from the database
+        val chapters = dbHelper.getAllChapters()
+
+        // Display chapters and levels dynamically
+        displayChaptersAndLevels(chapters)
     }
 
-    private fun fetchLevelsFromFirebase() {
-        // Reference to "levels" in Firebase
-        val levelsRef = database.child("levels")
+    private fun displayChaptersAndLevels(chapters: Map<String, List<Map<String, String>>>) {
+        val container = findViewById<LinearLayout>(R.id.container)
 
-        // Fetch data from Firebase
-        levelsRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val levels = mutableListOf<Level>()
+        for ((chapterName, levels) in chapters) {
+            // Add a TextView for the chapter name
+            val chapterTextView = Button(this).apply {
+                text = chapterName
+                isAllCaps = false
+                textSize = 18f
+                setBackgroundResource(R.drawable.chapter_background) // Add a background drawable if needed
+            }
+            container.addView(chapterTextView)
 
-                // Log the data to ensure it's fetched
-                Log.d("LevelSelectionActivity", "Data fetched from Firebase: $snapshot")
+            // Add buttons for each level in the chapter
+            for (level in levels) {
+                val levelButton = Button(this).apply {
+                    text = level["name"]
+                    textSize = 16f
+                    setBackgroundResource(R.drawable.level_background) // Add a background drawable if needed
 
-                // Iterate through the data and populate the levels list
-                for (levelSnapshot in snapshot.children) {
-                    val word = levelSnapshot.child("word").getValue(String::class.java)
-                    val lettersSnapshot = levelSnapshot.child("letters")
-                    val letters = mutableListOf<String>()
-
-                    // Fetch the letters for the level (as an array)
-                    for (letterSnapshot in lettersSnapshot.children) {
-                        val letter = letterSnapshot.getValue(String::class.java)
-                        if (letter != null) {
-                            letters.add(letter)
-                        }
-                    }
-
-                    // Create Level object with word and letters
-                    if (word != null) {
-                        val level = Level(word, letters)
-                        levels.add(level)
+                    // Handle level click
+                    setOnClickListener {
+                        val intent = Intent(this@LevelSelectionActivity, GameActivity::class.java)
+                        intent.putExtra("LEVEL_WORD", level["word"])
+                        intent.putStringArrayListExtra("LEVEL_LETTERS", ArrayList(level["letters"]?.split(",")))
+                        startActivity(intent)
                     }
                 }
-
-                // Log the levels to check if they are being populated
-                Log.d("LevelSelectionActivity", "Levels populated: ${levels.size}")
-
-                // Now that the data is fetched, initialize the adapter
-                levelAdapter = LevelAdapter(levels) { level ->
-                    // Handle level click, navigate to GameActivity
-                    val intent = Intent(this@LevelSelectionActivity, GameActivity::class.java)
-                    intent.putExtra("LEVEL_WORD", level.word)  // Send the word to GameActivity
-                    intent.putStringArrayListExtra("LEVEL_LETTERS", ArrayList(level.letters)) // Send letters as well
-                    startActivity(intent)
-                }
-
-                // Set the adapter to RecyclerView only after data is ready
-                rvLevels.adapter = levelAdapter
+                container.addView(levelButton)
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database read error
-                Log.e("LevelSelectionActivity", "Error fetching levels: ${error.message}")
-            }
-
-            private fun fetchLevelsFromFirebase() {
-                // Reference to "levels" in Firebase
-                val levelsRef = database.child("levels")
-
-                // Fetch data from Firebase
-                levelsRef.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val levels = mutableListOf<Level>()
-
-                        // Log the entire snapshot to see if you're fetching the correct data
-                        Log.d("LevelSelectionActivity", "Data fetched from Firebase: $snapshot")
-
-                        // Iterate through the data and populate the levels list
-                        for (levelSnapshot in snapshot.children) {
-                            val word = levelSnapshot.child("word").getValue(String::class.java)
-                            val lettersSnapshot = levelSnapshot.child("letters")
-                            val letters = mutableListOf<String>()
-
-                            // Fetch the letters for the level (as an array)
-                            for (letterSnapshot in lettersSnapshot.children) {
-                                val letter = letterSnapshot.getValue(String::class.java)
-                                if (letter != null) {
-                                    letters.add(letter)
-                                }
-                            }
-
-                            // Log individual level data
-                            Log.d("LevelSelectionActivity", "Fetched level: word = $word, letters = $letters")
-
-                            // Create Level object with word and letters
-                            if (word != null) {
-                                val level = Level(word, letters)
-                                levels.add(level)
-                            }
-                        }
-
-                        // Log the levels list size to confirm it was populated
-                        Log.d("LevelSelectionActivity", "Levels populated: ${levels.size}")
-
-                        // Now that the data is fetched, initialize the adapter
-                        levelAdapter = LevelAdapter(levels) { level ->
-                            // Handle level click, navigate to GameActivity
-                            val intent = Intent(this@LevelSelectionActivity, GameActivity::class.java)
-                            intent.putExtra("LEVEL_WORD", level.word)  // Send the word to GameActivity
-                            intent.putStringArrayListExtra("LEVEL_LETTERS", ArrayList(level.letters)) // Send letters as well
-                            startActivity(intent)
-                        }
-
-                        // Set the adapter to RecyclerView only after data is ready
-                        rvLevels.adapter = levelAdapter
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        // Handle database read error
-                        Log.e("LevelSelectionActivity", "Error fetching levels: ${error.message}")
-                    }
-                })
-            }
-
-        })
+        }
     }
 }
-
-
