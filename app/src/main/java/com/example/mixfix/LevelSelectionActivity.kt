@@ -14,19 +14,15 @@ class LevelSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level_selection)
 
-        // Initialize DatabaseHelper
         dbHelper = DatabaseHelper(this)
 
-        // Import JSON data if the database is empty
         if (!dbHelper.isDatabasePopulated()) {
             val jsonDataImporter = JsonDataImporter(this, dbHelper)
             jsonDataImporter.importData()
         }
 
-        // Fetch chapters from the database
         val chapters = dbHelper.getAllChapters()
 
-        // Display chapters and levels dynamically
         displayChaptersAndLevels(chapters)
     }
 
@@ -34,23 +30,20 @@ class LevelSelectionActivity : AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.container)
 
         for ((chapterName, levels) in chapters) {
-            // Add a TextView for the chapter name
             val chapterTextView = Button(this).apply {
                 text = chapterName
                 isAllCaps = false
                 textSize = 18f
-                setBackgroundResource(R.drawable.chapter_background) // Add a background drawable if needed
+                setBackgroundResource(R.drawable.chapter_background)
             }
             container.addView(chapterTextView)
 
-            // Add buttons for each level in the chapter
             for (level in levels) {
                 val levelButton = Button(this).apply {
                     text = level["name"]
                     textSize = 16f
-                    setBackgroundResource(R.drawable.level_background) // Add a background drawable if needed
+                    setBackgroundResource(R.drawable.level_background)
 
-                    // Handle level click
                     setOnClickListener {
                         val intent = Intent(this@LevelSelectionActivity, GameActivity::class.java)
                         intent.putExtra("LEVEL_WORD", level["word"])
