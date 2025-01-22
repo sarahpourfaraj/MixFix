@@ -19,7 +19,6 @@ class StartActivity : AppCompatActivity() {
 
         Log.d("StartActivity", "StartActivity created") // Add logging
 
-        // Start Button
         val btnStart: Button = findViewById(R.id.btnStart)
         btnStart.setOnClickListener {
             Log.d("StartActivity", "Start button clicked") // Add logging
@@ -27,7 +26,6 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Theme Toggle Button
         val btnThemeToggle: Button = findViewById(R.id.btnThemeToggle)
         btnThemeToggle.setOnClickListener {
             val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
@@ -42,7 +40,6 @@ class StartActivity : AppCompatActivity() {
             recreate()
         }
 
-        // Hyperlink Icons
         val ivGitHub: ImageView = findViewById(R.id.ivGitHub)
         val ivGmail: ImageView = findViewById(R.id.ivGmail)
         val ivLinkedIn: ImageView = findViewById(R.id.ivLinkedIn)
