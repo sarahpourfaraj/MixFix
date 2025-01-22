@@ -7,15 +7,12 @@ import java.io.InputStream
 class JsonDataImporter(private val context: Context, private val dbHelper: DatabaseHelper) {
 
     fun importData() {
-        // Read the JSON file from res/raw
         val inputStream: InputStream = context.resources.openRawResource(R.raw.levels)
         val jsonString = inputStream.bufferedReader().use { it.readText() }
 
-        // Parse the JSON
         val jsonObject = JSONObject(jsonString)
         val chaptersArray = jsonObject.getJSONArray("chapters")
 
-        // Insert chapters and levels into the database
         for (i in 0 until chaptersArray.length()) {
             val chapterObject = chaptersArray.getJSONObject(i)
             val chapterName = chapterObject.getString("name")
