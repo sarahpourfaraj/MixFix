@@ -15,6 +15,8 @@ class GameActivity : AppCompatActivity() {
     private lateinit var levelWord: String
     private lateinit var levelLetters: List<String>
     private lateinit var scrambledLetters: List<String>
+    private lateinit var dbHelper: DatabaseHelper // Add this line
+    private var levelId: Long = -1 // Add this line
 
     private lateinit var selectedLettersContainer: LinearLayout
     private lateinit var scrambledLettersContainer: LinearLayout
@@ -27,16 +29,22 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        // Initialize dbHelper
+        dbHelper = DatabaseHelper(this) // Add this line
+
         selectedLettersContainer = findViewById(R.id.selectedLettersContainer)
         scrambledLettersContainer = findViewById(R.id.scrambledLettersContainer)
         btnSubmit = findViewById(R.id.btnSubmit)
         tvResult = findViewById(R.id.tvResult)
 
+        // Get the word, letters, and level ID from the intent
         levelWord = intent.getStringExtra("LEVEL_WORD") ?: ""
         levelLetters = intent.getStringArrayListExtra("LEVEL_LETTERS")?.toList() ?: listOf()
+        levelId = intent.getLongExtra("LEVEL_ID", -1) // Add this line
 
         Log.d("GameActivity", "Received word: $levelWord")
         Log.d("GameActivity", "Received letters: $levelLetters")
+        Log.d("GameActivity", "Received level ID: $levelId") // Add this line
 
         scrambledLetters = levelLetters.shuffled()
 
@@ -107,9 +115,10 @@ class GameActivity : AppCompatActivity() {
 
     private fun checkGuess() {
         val guessedWord = selectedLetters.joinToString("")
-
         if (guessedWord.equals(levelWord, ignoreCase = true)) {
             tvResult.text = "Correct!"
+            dbHelper.markLevelAsCompleted(levelId) // Mark level as completed
+            dbHelper.unlockNextLevel(levelId) // Unlock the next level
             Handler().postDelayed({
                 val intent = Intent(this, LevelSelectionActivity::class.java)
                 startActivity(intent)
