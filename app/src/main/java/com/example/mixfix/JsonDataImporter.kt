@@ -16,7 +16,8 @@ class JsonDataImporter(private val context: Context, private val dbHelper: Datab
         for (i in 0 until chaptersArray.length()) {
             val chapterObject = chaptersArray.getJSONObject(i)
             val chapterName = chapterObject.getString("name")
-            val chapterId = dbHelper.addChapter(chapterName)
+            val isActive = i == 0
+            val chapterId = dbHelper.addChapter(chapterName, isActive)
 
             val levelsArray = chapterObject.getJSONArray("levels")
             for (j in 0 until levelsArray.length()) {
@@ -24,8 +25,10 @@ class JsonDataImporter(private val context: Context, private val dbHelper: Datab
                 val levelName = levelObject.getString("name")
                 val word = levelObject.getString("word")
                 val letters = levelObject.getString("letters")
+                val isCompleted = levelObject.getBoolean("is_completed")
+                val isLocked = levelObject.getBoolean("is_locked")
 
-                dbHelper.addLevel(levelName, word, letters, chapterId)
+                dbHelper.addLevel(levelName, word, letters, chapterId, isCompleted, isLocked)
             }
         }
     }
