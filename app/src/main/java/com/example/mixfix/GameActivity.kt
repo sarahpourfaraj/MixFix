@@ -21,7 +21,7 @@ class GameActivity : AppCompatActivity() {
     private var levelId: Long = -1
 
     private lateinit var selectedLettersContainer: LinearLayout
-    private lateinit var scrambledLettersContainer: GridLayout // Change to GridLayout
+    private lateinit var scrambledLettersContainer: GridLayout
     private lateinit var btnSubmit: Button
     private lateinit var tvResult: TextView
 
@@ -33,7 +33,7 @@ class GameActivity : AppCompatActivity() {
 
         dbHelper = DatabaseHelper(this)
         selectedLettersContainer = findViewById(R.id.selectedLettersContainer)
-        scrambledLettersContainer = findViewById(R.id.scrambledLettersContainer) // This is now a GridLayout
+        scrambledLettersContainer = findViewById(R.id.scrambledLettersContainer)
         btnSubmit = findViewById(R.id.btnSubmit)
         tvResult = findViewById(R.id.tvResult)
 
@@ -53,18 +53,18 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun displayScrambledLetters() {
-        scrambledLettersContainer.removeAllViews() // Clear the container
+        scrambledLettersContainer.removeAllViews()
 
         for (letter in scrambledLetters) {
             val letterButton = Button(this).apply {
                 text = letter
                 textSize = 18f
                 layoutParams = GridLayout.LayoutParams().apply {
-                    width = 0 // Use 0 to allow the GridLayout to manage the width
+                    width = 0
                     height = GridLayout.LayoutParams.WRAP_CONTENT
-                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // Equal weight for columns
-                    rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // Equal weight for rows
-                    setMargins(4, 4, 4, 4) // Add margins for spacing
+                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                    rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                    setMargins(4, 4, 4, 4)
                 }
                 setOnClickListener {
                     onLetterClicked(letter)
@@ -131,8 +131,16 @@ class GameActivity : AppCompatActivity() {
                 dbHelper.claimScore(levelId, score)
             }
 
-            val score = calculateScore(levelId)
-            showScorePopup(score, levelId)
+            // Check if this is the 10th level of the current chapter
+            val levelPosition = dbHelper.getLevelPositionInChapter(levelId)
+            if (levelPosition == 10) {
+                // Show the chapter completion pop-up
+                showChapterCompletionPopup()
+            } else {
+                // Show the regular score pop-up
+                val score = calculateScore(levelId)
+                showScorePopup(score, levelId)
+            }
         } else {
             showToast("Incorrect! Try again.")
         }
@@ -147,6 +155,37 @@ class GameActivity : AppCompatActivity() {
         } else {
             0
         }
+    }
+
+    private fun showChapterCompletionPopup() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_chapter_completion)
+
+        // Calculate total score for the chapter
+        val totalScore = dbHelper.getTotalScoreForChapter(dbHelper.getChapterIdForLevel(levelId))
+
+        // Set the total score in the dialog
+        val tvTotalScore = dialog.findViewById<TextView>(R.id.tvTotalScore)
+        tvTotalScore.text = "Total Score: $totalScore"
+
+        // Unlock the next chapter
+        val nextChapterId = dbHelper.getChapterIdForLevel(levelId) + 1
+        dbHelper.unlockChapter(nextChapterId)
+
+        // Set the message in the dialog
+        val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
+        tvMessage.text = "Congratulations! Chapter ${dbHelper.getChapterIdForLevel(levelId)} completed. Chapter $nextChapterId is now unlocked."
+
+        // Set up the "OK" button to dismiss the dialog
+        val btnOk = dialog.findViewById<Button>(R.id.btnOk)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(this, ChapterSelectionActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        dialog.show()
     }
 
     private fun showScorePopup(score: Int, levelId: Long) {
