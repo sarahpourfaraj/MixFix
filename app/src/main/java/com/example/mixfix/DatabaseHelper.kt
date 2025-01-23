@@ -223,4 +223,55 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             0
         }
     }
+
+    fun getChapterIdForLevel(levelId: Long): Long {
+        val db = readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT $COLUMN_CHAPTER_ID FROM $TABLE_LEVELS WHERE $COLUMN_ID = ?",
+            arrayOf(levelId.toString())
+        )
+        return if (cursor.moveToFirst()) {
+            cursor.getLong(0)
+        } else {
+            -1
+        }
+    }
+
+    fun getTotalScoreForChapter(chapterId: Long): Int {
+        val db = readableDatabase
+        val cursor = db.rawQuery(
+            """
+            SELECT SUM(CASE WHEN $COLUMN_ID % 10 IN (1,2,3,4,5) THEN 40 
+                           WHEN $COLUMN_ID % 10 IN (6,7,8,9,0) THEN 60 
+                           ELSE 0 END) 
+            FROM $TABLE_LEVELS 
+            WHERE $COLUMN_CHAPTER_ID = ? AND $COLUMN_IS_SCORE_CLAIMED = 1
+            """,
+            arrayOf(chapterId.toString())
+        )
+        return if (cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            0
+        }
+    }
+
+    fun unlockChapter(chapterId: Long) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_IS_ACTIVE, 1)
+        }
+        db.update(TABLE_CHAPTERS, values, "$COLUMN_ID = ?", arrayOf(chapterId.toString()))
+
+        // Unlock the first level of the new chapter
+        val levelValues = ContentValues().apply {
+            put(COLUMN_IS_LOCKED, 0)
+        }
+        db.update(
+            TABLE_LEVELS,
+            levelValues,
+            "$COLUMN_CHAPTER_ID = ? AND $COLUMN_ID % 10 = 1", // Unlock the first level of the chapter
+            arrayOf(chapterId.toString())
+        )
+    }
 }

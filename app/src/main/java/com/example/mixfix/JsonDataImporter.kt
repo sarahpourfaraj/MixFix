@@ -16,7 +16,7 @@ class JsonDataImporter(private val context: Context, private val dbHelper: Datab
         for (i in 0 until chaptersArray.length()) {
             val chapterObject = chaptersArray.getJSONObject(i)
             val chapterName = chapterObject.getString("name")
-            val isActive = i == 0
+            val isActive = i == 0 // Only the first chapter is active initially
             val chapterId = dbHelper.addChapter(chapterName, isActive)
 
             val levelsArray = chapterObject.getJSONArray("levels")
