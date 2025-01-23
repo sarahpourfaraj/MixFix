@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/space_background">
+
+    <ImageView
+        android:id="@+id/ivChapter1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/stone_active"
+        android:onClick="onChapterClicked"
+        android:tag="1"
+    android:layout_margin="16dp"/>
+
+    <ImageView
+        android:id="@+id/ivChapter2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/stone_inactive"
+        android:onClick="onChapterClicked"
+        android:tag="2"
+    android:layout_margin="16dp"/>
+
+    <!-- Chapters 3, 4, and 5 -->
+
+</LinearLayout>
