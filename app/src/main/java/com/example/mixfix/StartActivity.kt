@@ -17,12 +17,13 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        Log.d("StartActivity", "StartActivity created") // Add logging
+        Log.d("StartActivity", "StartActivity created")
 
         val btnStart: Button = findViewById(R.id.btnStart)
         btnStart.setOnClickListener {
-            Log.d("StartActivity", "Start button clicked") // Add logging
-            val intent = Intent(this, LevelSelectionActivity::class.java)
+            Log.d("StartActivity", "Start button clicked")
+            // Navigate to ChapterSelectionActivity instead of LevelSelectionActivity
+            val intent = Intent(this, ChapterSelectionActivity::class.java)
             startActivity(intent)
         }
 
