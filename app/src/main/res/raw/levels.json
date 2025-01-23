@@ -6,52 +6,72 @@
         {
           "name": "Level 1",
           "word": "apple",
-          "letters": "a,p,p,l,e"
+          "letters": "a,p,p,l,e",
+          "is_completed": false,
+          "is_locked": false
         },
         {
           "name": "Level 2",
           "word": "banana",
-          "letters": "b,a,n,a,n,a"
+          "letters": "b,a,n,a,n,a",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 3",
           "word": "cherry",
-          "letters": "c,h,e,r,r,y"
+          "letters": "c,h,e,r,r,y",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 4",
           "word": "date",
-          "letters": "d,a,t,e"
+          "letters": "d,a,t,e",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 5",
           "word": "elderberry",
-          "letters": "e,l,d,e,r,b,e,r,r,y"
+          "letters": "e,l,d,e,r,b,e,r,r,y",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 6",
           "word": "fig",
-          "letters": "f,i,g"
+          "letters": "f,i,g",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 7",
           "word": "grape",
-          "letters": "g,r,a,p,e"
+          "letters": "g,r,a,p,e",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 8",
           "word": "honeydew",
-          "letters": "h,o,n,e,y,d,e,w"
+          "letters": "h,o,n,e,y,d,e,w",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 9",
           "word": "kiwi",
-          "letters": "k,i,w,i"
+          "letters": "k,i,w,i",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 10",
           "word": "lemon",
-          "letters": "l,e,m,o,n"
+          "letters": "l,e,m,o,n",
+          "is_completed": false,
+          "is_locked": true
         }
       ]
     },
@@ -61,52 +81,72 @@
         {
           "name": "Level 1",
           "word": "orange",
-          "letters": "o,r,a,n,g,e"
+          "letters": "o,r,a,n,g,e",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 2",
           "word": "melon",
-          "letters": "m,e,l,o,n"
+          "letters": "m,e,l,o,n",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 3",
           "word": "pear",
-          "letters": "p,e,a,r"
+          "letters": "p,e,a,r",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 4",
           "word": "plum",
-          "letters": "p,l,u,m"
+          "letters": "p,l,u,m",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 5",
           "word": "peach",
-          "letters": "p,e,a,c,h"
+          "letters": "p,e,a,c,h",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 6",
           "word": "apple",
-          "letters": "a,p,p,l,e"
+          "letters": "a,p,p,l,e",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 7",
           "word": "banana",
-          "letters": "b,a,n,a,n,a"
+          "letters": "b,a,n,a,n,a",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 8",
           "word": "grape",
-          "letters": "g,r,a,p,e"
+          "letters": "g,r,a,p,e",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 9",
           "word": "plum",
-          "letters": "p,l,u,m"
+          "letters": "p,l,u,m",
+          "is_completed": false,
+          "is_locked": true
         },
         {
           "name": "Level 10",
           "word": "cherry",
-          "letters": "c,h,e,r,r,y"
+          "letters": "c,h,e,r,r,y",
+          "is_completed": false,
+          "is_locked": true
         }
       ]
     }
