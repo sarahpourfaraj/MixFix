@@ -30,6 +30,11 @@ class ChapterSelectionActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadChapterStatus() // Refresh the chapter status when the activity resumes
+    }
+
     private fun loadChapterStatus() {
         val chapters = dbHelper.getAllChapters()
         Log.d("ChapterSelectionActivity", "Chapters: $chapters")
@@ -47,10 +52,10 @@ class ChapterSelectionActivity : AppCompatActivity() {
     }
 
     fun onChapterClicked(view: View) {
-        val chapterId = view.tag.toString().toInt()
+        val chapterId = view.tag.toString().toLong() // Convert to Long
         Log.d("ChapterSelectionActivity", "Chapter clicked: $chapterId")
         val intent = Intent(this, LevelSelectionActivity::class.java)
-        intent.putExtra("CHAPTER_ID", chapterId)
+        intent.putExtra("CHAPTER_ID", chapterId) // Pass as Long
         startActivity(intent)
     }
 }
