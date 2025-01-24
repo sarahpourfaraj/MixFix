@@ -1,152 +1,512 @@
 {
   "chapters": [
     {
-      "name": "Chapter 1",
+      "name": "Chapter 1: Soul",
       "levels": [
         {
           "name": "Level 1",
-          "word": "apple",
-          "letters": "a,p,p,l,e",
+          "word": "love",
+          "letters": "l,o,v,e",
           "is_completed": false,
-          "is_locked": false
+          "is_locked": false,
+          "idea": "The essence of the soul, a deep emotional connection."
         },
         {
           "name": "Level 2",
-          "word": "banana",
-          "letters": "b,a,n,a,n,a",
+          "word": "hope",
+          "letters": "h,o,p,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "A feeling of expectation and desire for something to happen."
         },
         {
           "name": "Level 3",
-          "word": "cherry",
-          "letters": "c,h,e,r,r,y",
+          "word": "faith",
+          "letters": "f,a,i,t,h",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Complete trust or confidence in someone or something."
         },
         {
           "name": "Level 4",
-          "word": "date",
-          "letters": "d,a,t,e",
+          "word": "peace",
+          "letters": "p,e,a,c,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "A state of tranquility and harmony."
         },
         {
           "name": "Level 5",
-          "word": "elderberry",
-          "letters": "e,l,d,e,r,b,e,r,r,y",
+          "word": "grace",
+          "letters": "g,r,a,c,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Elegance and beauty of movement or expression."
         },
         {
           "name": "Level 6",
-          "word": "fig",
-          "letters": "f,i,g",
+          "word": "serene",
+          "letters": "s,e,r,e,n,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Calm, peaceful, and untroubled."
         },
         {
           "name": "Level 7",
-          "word": "grape",
-          "letters": "g,r,a,p,e",
+          "word": "wisdom",
+          "letters": "w,i,s,d,o,m",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "The quality of having experience, knowledge, and good judgment."
         },
         {
           "name": "Level 8",
-          "word": "honeydew",
-          "letters": "h,o,n,e,y,d,e,w",
+          "word": "eternal",
+          "letters": "e,t,e,r,n,a,l",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Lasting or existing forever."
         },
         {
           "name": "Level 9",
-          "word": "kiwi",
-          "letters": "k,i,w,i",
+          "word": "essence",
+          "letters": "e,s,s,e,n,c,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "The intrinsic nature or indispensable quality of something."
         },
         {
           "name": "Level 10",
-          "word": "lemon",
-          "letters": "l,e,m,o,n",
+          "word": "harmony",
+          "letters": "h,a,r,m,o,n,y",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "The combination of parts into a pleasing or orderly whole."
         }
       ]
     },
     {
-      "name": "Chapter 2",
+      "name": "Chapter 2: Reality",
       "levels": [
         {
           "name": "Level 1",
-          "word": "orange",
-          "letters": "o,r,a,n,g,e",
+          "word": "truth",
+          "letters": "t,r,u,t,h",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "The quality of being in accordance with fact or reality."
         },
         {
           "name": "Level 2",
-          "word": "melon",
-          "letters": "m,e,l,o,n",
+          "word": "logic",
+          "letters": "l,o,g,i,c",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Reasoning conducted or assessed according to strict principles."
         },
         {
           "name": "Level 3",
-          "word": "pear",
-          "letters": "p,e,a,r",
+          "word": "proof",
+          "letters": "p,r,o,o,f",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Evidence or argument establishing a fact or truth."
         },
         {
           "name": "Level 4",
-          "word": "plum",
-          "letters": "p,l,u,m",
+          "word": "solid",
+          "letters": "s,o,l,i,d",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Firm and stable in shape; not liquid or fluid."
         },
         {
           "name": "Level 5",
-          "word": "peach",
-          "letters": "p,e,a,c,h",
+          "word": "clear",
+          "letters": "c,l,e,a,r",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Easy to perceive, understand, or interpret."
         },
         {
           "name": "Level 6",
-          "word": "apple",
-          "letters": "a,p,p,l,e",
+          "word": "tangible",
+          "letters": "t,a,n,g,i,b,l,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Perceptible by touch; clear and definite."
         },
         {
           "name": "Level 7",
-          "word": "banana",
-          "letters": "b,a,n,a,n,a",
+          "word": "concrete",
+          "letters": "c,o,n,c,r,e,t,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Existing in a material or physical form."
         },
         {
           "name": "Level 8",
-          "word": "grape",
-          "letters": "g,r,a,p,e",
+          "word": "factual",
+          "letters": "f,a,c,t,u,a,l",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Concerned with what is actually the case."
         },
         {
           "name": "Level 9",
-          "word": "plum",
-          "letters": "p,l,u,m",
+          "word": "literal",
+          "letters": "l,i,t,e,r,a,l",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Taking words in their usual or most basic sense."
         },
         {
           "name": "Level 10",
-          "word": "cherry",
-          "letters": "c,h,e,r,r,y",
+          "word": "objective",
+          "letters": "o,b,j,e,c,t,i,v,e",
           "is_completed": false,
-          "is_locked": true
+          "is_locked": true,
+          "idea": "Not influenced by personal feelings or opinions."
+        }
+      ]
+    },
+    {
+      "name": "Chapter 3: Space",
+      "levels": [
+        {
+          "name": "Level 1",
+          "word": "star",
+          "letters": "s,t,a,r",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A luminous point in the night sky."
+        },
+        {
+          "name": "Level 2",
+          "word": "moon",
+          "letters": "m,o,o,n",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Earth's natural satellite."
+        },
+        {
+          "name": "Level 3",
+          "word": "comet",
+          "letters": "c,o,m,e,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A celestial object with a tail of light."
+        },
+        {
+          "name": "Level 4",
+          "word": "orbit",
+          "letters": "o,r,b,i,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The path of a celestial body around another."
+        },
+        {
+          "name": "Level 5",
+          "word": "planet",
+          "letters": "p,l,a,n,e,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A celestial body moving around a star."
+        },
+        {
+          "name": "Level 6",
+          "word": "galaxy",
+          "letters": "g,a,l,a,x,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A massive system of stars, dust, and gas."
+        },
+        {
+          "name": "Level 7",
+          "word": "nebula",
+          "letters": "n,e,b,u,l,a",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A cloud of gas and dust in outer space."
+        },
+        {
+          "name": "Level 8",
+          "word": "cosmos",
+          "letters": "c,o,s,m,o,s",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The universe seen as a well-ordered whole."
+        },
+        {
+          "name": "Level 9",
+          "word": "quasar",
+          "letters": "q,u,a,s,a,r",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A massive and extremely remote celestial object."
+        },
+        {
+          "name": "Level 10",
+          "word": "asteroid",
+          "letters": "a,s,t,e,r,o,i,d",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A small rocky body orbiting the sun."
+        }
+      ]
+    },
+    {
+      "name": "Chapter 4: Power",
+      "levels": [
+        {
+          "name": "Level 1",
+          "word": "strength",
+          "letters": "s,t,r,e,n,g,t,h",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The quality of being physically strong."
+        },
+        {
+          "name": "Level 2",
+          "word": "energy",
+          "letters": "e,n,e,r,g,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The capacity to do work or produce change."
+        },
+        {
+          "name": "Level 3",
+          "word": "force",
+          "letters": "f,o,r,c,e",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Strength or energy as an attribute of action."
+        },
+        {
+          "name": "Level 4",
+          "word": "might",
+          "letters": "m,i,g,h,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Great and impressive power or strength."
+        },
+        {
+          "name": "Level 5",
+          "word": "vigor",
+          "letters": "v,i,g,o,r",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Physical strength and good health."
+        },
+        {
+          "name": "Level 6",
+          "word": "dominion",
+          "letters": "d,o,m,i,n,i,o,n",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Sovereignty or control over a territory."
+        },
+        {
+          "name": "Level 7",
+          "word": "authority",
+          "letters": "a,u,t,h,o,r,i,t,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The power to enforce rules or give orders."
+        },
+        {
+          "name": "Level 8",
+          "word": "influence",
+          "letters": "i,n,f,l,u,e,n,c,e",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The capacity to have an effect on someone or something."
+        },
+        {
+          "name": "Level 9",
+          "word": "command",
+          "letters": "c,o,m,m,a,n,d",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The authority to give orders and make decisions."
+        },
+        {
+          "name": "Level 10",
+          "word": "supremacy",
+          "letters": "s,u,p,r,e,m,a,c,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The state of being the most powerful or important."
+        }
+      ]
+    },
+    {
+      "name": "Chapter 5: Time",
+      "levels": [
+        {
+          "name": "Level 1",
+          "word": "clock",
+          "letters": "c,l,o,c,k",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A device for measuring and indicating time."
+        },
+        {
+          "name": "Level 2",
+          "word": "moment",
+          "letters": "m,o,m,e,n,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A very brief period of time."
+        },
+        {
+          "name": "Level 3",
+          "word": "future",
+          "letters": "f,u,t,u,r,e",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The time or a period of time following the present."
+        },
+        {
+          "name": "Level 4",
+          "word": "past",
+          "letters": "p,a,s,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The time before the present."
+        },
+        {
+          "name": "Level 5",
+          "word": "present",
+          "letters": "p,r,e,s,e,n,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The current moment in time."
+        },
+        {
+          "name": "Level 6",
+          "word": "eternity",
+          "letters": "e,t,e,r,n,i,t,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Infinite or unending time."
+        },
+        {
+          "name": "Level 7",
+          "word": "timeless",
+          "letters": "t,i,m,e,l,e,s,s",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Not affected by the passage of time."
+        },
+        {
+          "name": "Level 8",
+          "word": "duration",
+          "letters": "d,u,r,a,t,i,o,n",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The time during which something continues."
+        },
+        {
+          "name": "Level 9",
+          "word": "century",
+          "letters": "c,e,n,t,u,r,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A period of one hundred years."
+        },
+        {
+          "name": "Level 10",
+          "word": "infinity",
+          "letters": "i,n,f,i,n,i,t,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A concept of something without any limit."
+        }
+      ]
+    },
+    {
+      "name": "Chapter 6: Mind",
+      "levels": [
+        {
+          "name": "Level 1",
+          "word": "thought",
+          "letters": "t,h,o,u,g,h,t",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "An idea or opinion produced by thinking."
+        },
+        {
+          "name": "Level 2",
+          "word": "logic",
+          "letters": "l,o,g,i,c",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Reasoning conducted according to strict principles."
+        },
+        {
+          "name": "Level 3",
+          "word": "memory",
+          "letters": "m,e,m,o,r,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The faculty by which the mind stores and remembers information."
+        },
+        {
+          "name": "Level 4",
+          "word": "focus",
+          "letters": "f,o,c,u,s",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The center of interest or activity."
+        },
+        {
+          "name": "Level 5",
+          "word": "dream",
+          "letters": "d,r,e,a,m",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "A series of thoughts, images, and sensations occurring in sleep."
+        },
+        {
+          "name": "Level 6",
+          "word": "intuition",
+          "letters": "i,n,t,u,i,t,i,o,n",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The ability to understand something instinctively."
+        },
+        {
+          "name": "Level 7",
+          "word": "imagine",
+          "letters": "i,m,a,g,i,n,e",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "To form a mental image or concept of something."
+        },
+        {
+          "name": "Level 8",
+          "word": "conscious",
+          "letters": "c,o,n,s,c,i,o,u,s",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "Aware of and responding to one's surroundings."
+        },
+        {
+          "name": "Level 9",
+          "word": "perceive",
+          "letters": "p,e,r,c,e,i,v,e",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "To become aware of something through the senses."
+        },
+        {
+          "name": "Level 10",
+          "word": "philosophy",
+          "letters": "p,h,i,l,o,s,o,p,h,y",
+          "is_completed": false,
+          "is_locked": true,
+          "idea": "The study of fundamental questions about existence and knowledge."
         }
       ]
     }
