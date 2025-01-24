@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/light_game">
 
     <TextView
         android:id="@+id/tvIdea"
@@ -13,7 +14,6 @@
         android:textSize="18sp"
         android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:text="Idea will appear here"
         android:visibility="visible"/>
 
     <!-- Hearts Display -->
@@ -95,6 +95,8 @@
             android:text="Idea (1)"
             android:background="@drawable/button_background"
             android:textColor="@color/white"/>
+
+
     </LinearLayout>
 
     <!-- Submit Button -->
@@ -107,6 +109,7 @@
         android:background="@drawable/button_background"
         android:textColor="@color/white"/>
 
+
     <!-- Result Text -->
     <TextView
         android:id="@+id/tvResult"
@@ -117,5 +120,11 @@
         android:gravity="center"
         android:layout_marginTop="16dp"/>
 
-
+    <Button
+        android:id="@+id/btnShowScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp" />
 </LinearLayout>

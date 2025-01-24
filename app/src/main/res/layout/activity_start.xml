@@ -5,17 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="bottom"
-    android:padding="16dp">
-
-  <!-- ImageView for the GIF Background -->
-  <!--
-  <ImageView
-      android:id="@+id/gifBackground"
-      android:layout_width="match_parent"
-      android:layout_height="550dp"
-      android:layout_alignParentTop="true"
-      android:scaleType="centerCrop" />
-  -->
+    android:padding="16dp"
+    android:background="@drawable/start_bg">
 
   <Button
       android:id="@+id/btnStart"
@@ -34,13 +25,13 @@
     <Button
         android:id="@+id/btnThemeToggle"
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Toggle" />
+        android:layout_height="60dp"
+        android:text="Theme" />
 
     <Button
         android:id="@+id/btnInactive1"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:enabled="false"
         android:text="Inactive" />
@@ -48,7 +39,7 @@
     <Button
         android:id="@+id/btnInactive2"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:text="Inactive"
         android:enabled="false"
         android:layout_marginStart="8dp" />
