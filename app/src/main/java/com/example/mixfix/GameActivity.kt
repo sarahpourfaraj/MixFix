@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,41 +20,120 @@ class GameActivity : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
     private var levelId: Long = -1
 
-    private lateinit var selectedLettersContainer: LinearLayout
-    private lateinit var scrambledLettersContainer: GridLayout
+    private lateinit var wordContainer: LinearLayout
+    private lateinit var keyboardContainer: GridLayout
     private lateinit var btnSubmit: Button
+    private lateinit var btnHint: Button
+    private lateinit var btnIdea: Button
     private lateinit var tvResult: TextView
+    private lateinit var tvIdea: TextView // TextView to display the idea
+    private lateinit var heart1: ImageView
+    private lateinit var heart2: ImageView
+    private lateinit var heart3: ImageView
 
     private val selectedLetters = mutableListOf<String>()
+    private var hearts = 3 // Number of hearts (lives)
+    private var hintsUsed = 0 // Total hints used across all chapters
+    private var ideasUsed = 0 // Total ideas used across all chapters
+
+    // Track which letters were revealed by hints
+    private val hintRevealedIndices = mutableSetOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
         dbHelper = DatabaseHelper(this)
-        selectedLettersContainer = findViewById(R.id.selectedLettersContainer)
-        scrambledLettersContainer = findViewById(R.id.scrambledLettersContainer)
+        wordContainer = findViewById(R.id.wordContainer)
+        keyboardContainer = findViewById(R.id.keyboardContainer)
         btnSubmit = findViewById(R.id.btnSubmit)
+        btnHint = findViewById(R.id.btnHint)
+        btnIdea = findViewById(R.id.btnIdea)
         tvResult = findViewById(R.id.tvResult)
+        tvIdea = findViewById(R.id.tvIdea)
+        heart1 = findViewById(R.id.heart1)
+        heart2 = findViewById(R.id.heart2)
+        heart3 = findViewById(R.id.heart3)
 
         levelWord = intent.getStringExtra("LEVEL_WORD") ?: ""
         levelLetters = intent.getStringArrayListExtra("LEVEL_LETTERS")?.toList() ?: listOf()
         levelId = intent.getLongExtra("LEVEL_ID", -1)
+
         Log.d("GameActivity", "Received word: $levelWord")
         Log.d("GameActivity", "Received letters: $levelLetters")
         Log.d("GameActivity", "Received level ID: $levelId")
 
-        scrambledLetters = levelLetters.shuffled()
-        displayScrambledLetters()
+        // Load the total hints and ideas used across all chapters
+        hintsUsed = dbHelper.getTotalHintsUsed()
+        ideasUsed = dbHelper.getTotalIdeasUsed()
+
+        scrambledLetters = levelLetters.distinct().shuffled()
+        displayWordContainer() // Display empty squares for the word
+        displayKeyboard() // Display the keyboard
+        updateHeartsDisplay()
+        updateHintAndIdeaButtons()
 
         btnSubmit.setOnClickListener {
             checkGuess()
         }
+
+        btnHint.setOnClickListener {
+            useHint()
+        }
+
+        btnIdea.setOnClickListener {
+            useIdea()
+        }
     }
 
-    private fun displayScrambledLetters() {
-        scrambledLettersContainer.removeAllViews()
+    private fun displayWordContainer() {
+        wordContainer.removeAllViews()
 
+        // Create empty squares for the word
+        for (i in levelWord.indices) {
+            val textView = TextView(this).apply {
+                text = "" // Empty text
+                textSize = 24f
+                layoutParams = LinearLayout.LayoutParams(
+                    resources.getDimensionPixelSize(R.dimen.square_size), // Set a fixed size for the squares
+                    resources.getDimensionPixelSize(R.dimen.square_size)
+                ).apply {
+                    setMargins(8, 0, 8, 0)
+                }
+                background = resources.getDrawable(R.drawable.square_background, null) // Square background
+                gravity = android.view.Gravity.CENTER
+                tag = "empty" // Tag to identify empty squares
+
+                // Add OnClickListener to handle undo
+                setOnClickListener {
+                    onWordSquareClicked(this, i)
+                }
+            }
+            wordContainer.addView(textView)
+        }
+    }
+
+    private fun onWordSquareClicked(textView: TextView, index: Int) {
+        // Check if the letter was revealed by a hint
+        if (hintRevealedIndices.contains(index)) {
+            return // Do not allow removal of hint-revealed letters
+        }
+
+        if (textView.text.isNotEmpty()) {
+            // Remove the letter from the selectedLetters list
+            val letter = textView.text.toString()
+            selectedLetters.remove(letter)
+
+            // Clear the text in the square
+            textView.text = ""
+            textView.tag = "empty"
+        }
+    }
+
+    private fun displayKeyboard() {
+        keyboardContainer.removeAllViews()
+
+        // Create buttons for the scrambled letters (no duplicates)
         for (letter in scrambledLetters) {
             val letterButton = Button(this).apply {
                 text = letter
@@ -70,150 +149,191 @@ class GameActivity : AppCompatActivity() {
                     onLetterClicked(letter)
                 }
             }
-            scrambledLettersContainer.addView(letterButton)
+            keyboardContainer.addView(letterButton)
         }
     }
 
     private fun onLetterClicked(letter: String) {
-        selectedLetters.add(letter)
-        updateSelectedLettersDisplay()
-
-        for (i in 0 until scrambledLettersContainer.childCount) {
-            val button = scrambledLettersContainer.getChildAt(i) as Button
-            if (button.text == letter && button.isEnabled) {
-                button.isEnabled = false
+        // Find the first empty square in the word container
+        for (i in 0 until wordContainer.childCount) {
+            val textView = wordContainer.getChildAt(i) as TextView
+            if (textView.text.isEmpty()) {
+                // Fill the empty square with the clicked letter
+                textView.text = letter
+                textView.tag = "filled"
+                selectedLetters.add(letter)
                 break
             }
         }
     }
 
-    private fun updateSelectedLettersDisplay() {
-        selectedLettersContainer.removeAllViews()
+    private fun updateHeartsDisplay() {
+        heart1.setImageResource(if (hearts >= 1) R.drawable.heart_full else R.drawable.heart_empty)
+        heart2.setImageResource(if (hearts >= 2) R.drawable.heart_full else R.drawable.heart_empty)
+        heart3.setImageResource(if (hearts >= 3) R.drawable.heart_full else R.drawable.heart_empty)
+    }
 
-        for (letter in selectedLetters) {
-            val letterButton = Button(this).apply {
-                text = letter
-                textSize = 18f
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1f
-                )
-                setOnClickListener {
-                    onSelectedLetterClicked(letter)
-                }
-            }
-            selectedLettersContainer.addView(letterButton)
+    private fun updateHintAndIdeaButtons() {
+        btnHint.text = "Hint (${2 - hintsUsed})"
+        btnIdea.text = "Idea (${1 - ideasUsed})"
+    }
+
+    private fun useHint() {
+        val totalScore = dbHelper.getTotalScore()
+        val remainingHints = 2 - hintsUsed
+
+        if (remainingHints > 0) {
+            // Use a free hint
+            hintsUsed++
+            dbHelper.updateTotalHintsUsed(hintsUsed)
+            updateHintAndIdeaButtons()
+
+            // Reveal a random letter
+            revealRandomLetter()
+        } else if (totalScore >= 100) {
+            // Deduct 100 points for the hint
+            dbHelper.claimScore(levelId, -100)
+            showToast("100 points deducted for hint!")
+
+            // Reveal a random letter
+            revealRandomLetter()
+        } else {
+            showToast("Not enough points to use hint!")
         }
     }
 
-    private fun onSelectedLetterClicked(letter: String) {
-        selectedLetters.remove(letter)
-        updateSelectedLettersDisplay()
-
-        for (i in 0 until scrambledLettersContainer.childCount) {
-            val button = scrambledLettersContainer.getChildAt(i) as Button
-            if (button.text == letter && !button.isEnabled) {
-                button.isEnabled = true
-                break
+    private fun revealRandomLetter() {
+        // Find all empty squares
+        val emptySquares = mutableListOf<Pair<TextView, Int>>()
+        for (i in levelWord.indices) {
+            val textView = wordContainer.getChildAt(i) as TextView
+            if (textView.text.isEmpty()) {
+                emptySquares.add(Pair(textView, i))
             }
         }
+
+        // If there are empty squares, pick a random one and fill it with the correct letter
+        if (emptySquares.isNotEmpty()) {
+            val (textView, index) = emptySquares.random()
+            val correctLetter = levelWord[index].toString()
+            textView.text = correctLetter
+            textView.tag = "filled"
+            selectedLetters.add(correctLetter)
+
+            // Mark this index as revealed by a hint
+            hintRevealedIndices.add(index)
+        }
+    }
+
+    private fun useIdea() {
+        val totalScore = dbHelper.getTotalScore()
+        val remainingIdeas = 1 - ideasUsed
+
+        if (remainingIdeas > 0) {
+            // Use a free idea
+            ideasUsed++
+            dbHelper.updateTotalIdeasUsed(ideasUsed)
+            updateHintAndIdeaButtons()
+
+            // Show the idea sentence
+            showIdea()
+        } else if (totalScore >= 500) {
+            // Deduct 500 points for the idea
+            dbHelper.claimScore(levelId, -500)
+            showToast("500 points deducted for idea!")
+
+            // Show the idea sentence
+            showIdea()
+        } else {
+            showToast("Not enough points to use idea!")
+        }
+    }
+
+    private fun showIdea() {
+        // Get the idea from the database
+        val level = dbHelper.getLevelById(levelId)
+        val idea = level?.get("idea") as? String ?: "Think of a common word."
+        tvIdea.text = idea // Display the idea in the TextView
     }
 
     private fun checkGuess() {
-        val guessedWord = selectedLetters.joinToString("")
+        // Build the guessed word from the wordContainer
+        val guessedWord = buildGuessedWordFromContainer()
+
+        if (guessedWord.isEmpty()) {
+            showToast("Please select some letters!")
+            return
+        }
+
         if (guessedWord.equals(levelWord, ignoreCase = true)) {
-            dbHelper.markLevelAsCompleted(levelId)
-            dbHelper.unlockNextLevel(levelId)
-
-            if (!dbHelper.isScoreClaimed(levelId)) {
-                val score = calculateScore(levelId)
-                dbHelper.claimScore(levelId, score)
-            }
-
-            // Check if this is the 10th level of the current chapter
-            val levelPosition = dbHelper.getLevelPositionInChapter(levelId)
-            if (levelPosition == 10) {
-                // Show the chapter completion pop-up
-                showChapterCompletionPopup()
+            showWinPopup()
+        } else {
+            hearts--
+            updateHeartsDisplay()
+            if (hearts <= 0) {
+                showLosePopup()
             } else {
-                // Show the regular score pop-up
-                val score = calculateScore(levelId)
-                showScorePopup(score, levelId)
+                showToast("Incorrect! You have $hearts hearts left.")
             }
-        } else {
-            showToast("Incorrect! Try again.")
         }
     }
 
-    private fun calculateScore(levelId: Long): Int {
-        val levelPosition = dbHelper.getLevelPositionInChapter(levelId)
-        return if (levelPosition in 1..5) {
-            40
-        } else if (levelPosition in 6..10) {
-            60
-        } else {
-            0
+    private fun buildGuessedWordFromContainer(): String {
+        val guessedWord = StringBuilder()
+        for (i in 0 until wordContainer.childCount) {
+            val textView = wordContainer.getChildAt(i) as TextView
+            guessedWord.append(textView.text)
         }
+        return guessedWord.toString()
     }
 
-    private fun showChapterCompletionPopup() {
+    private fun showWinPopup() {
         val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_chapter_completion)
-
-        // Calculate total score for the chapter
-        val totalScore = dbHelper.getTotalScoreForChapter(dbHelper.getChapterIdForLevel(levelId))
-
-        // Set the total score in the dialog
-        val tvTotalScore = dialog.findViewById<TextView>(R.id.tvTotalScore)
-        tvTotalScore.text = "Total Score: $totalScore"
-
-        // Unlock the next chapter
-        val nextChapterId = dbHelper.getChapterIdForLevel(levelId) + 1
-        dbHelper.unlockChapter(nextChapterId)
-
-        // Set the message in the dialog
-        val tvMessage = dialog.findViewById<TextView>(R.id.tvMessage)
-        tvMessage.text = "Congratulations! Chapter ${dbHelper.getChapterIdForLevel(levelId)} completed. Chapter $nextChapterId is now unlocked."
-
-        // Set up the "OK" button to dismiss the dialog
-        val btnOk = dialog.findViewById<Button>(R.id.btnOk)
-        btnOk.setOnClickListener {
-            dialog.dismiss()
-            val intent = Intent(this, ChapterSelectionActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        dialog.show()
-    }
-
-    private fun showScorePopup(score: Int, levelId: Long) {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_score)
-
-        val tvScore = dialog.findViewById<TextView>(R.id.tvScore)
-        tvScore.text = "Your Score: $score"
+        dialog.setContentView(R.layout.dialog_win)
 
         val btnNextLevel = dialog.findViewById<Button>(R.id.btnNextLevel)
+        val btnChapters = dialog.findViewById<Button>(R.id.btnChapters)
+
         btnNextLevel.setOnClickListener {
             dialog.dismiss()
             loadNextLevel(levelId)
         }
 
-        val btnChapters = dialog.findViewById<Button>(R.id.btnChapters)
         btnChapters.setOnClickListener {
             dialog.dismiss()
             goToChapters()
         }
 
-        val btnMusicOptions = dialog.findViewById<Button>(R.id.btnMusicOptions)
-        btnMusicOptions.setOnClickListener {
+        dialog.show()
+    }
+
+    private fun showLosePopup() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_lose)
+
+        val btnReplay = dialog.findViewById<Button>(R.id.btnReplay)
+        val btnHome = dialog.findViewById<Button>(R.id.btnHome)
+
+        btnReplay.setOnClickListener {
             dialog.dismiss()
-            showMusicOptions()
+            resetGame()
+        }
+
+        btnHome.setOnClickListener {
+            dialog.dismiss()
+            goToChapters()
         }
 
         dialog.show()
+    }
+
+    private fun resetGame() {
+        hearts = 3
+        selectedLetters.clear()
+        updateHeartsDisplay()
+        displayWordContainer()
+        displayKeyboard()
+        tvResult.text = ""
     }
 
     private fun loadNextLevel(currentLevelId: Long) {
@@ -223,43 +343,17 @@ class GameActivity : AppCompatActivity() {
             levelId = nextLevelId
             levelWord = nextLevel["word"] as String
             levelLetters = (nextLevel["letters"] as String).split(",")
-            scrambledLetters = levelLetters.shuffled()
-            resetUIForNextLevel()
+            scrambledLetters = levelLetters.distinct().shuffled()
+            resetGame()
         } else {
             showToast("No more levels available!")
         }
-    }
-
-    private fun resetUIForNextLevel() {
-        selectedLetters.clear()
-        updateSelectedLettersDisplay()
-        displayScrambledLetters()
-        tvResult.text = ""
     }
 
     private fun goToChapters() {
         val intent = Intent(this, ChapterSelectionActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    private fun showMusicOptions() {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_music_options)
-
-        val switchMusic = dialog.findViewById<Switch>(R.id.switchMusic)
-        val switchSound = dialog.findViewById<Switch>(R.id.switchSound)
-
-        switchMusic.isChecked = true
-        switchSound.isChecked = true
-
-        dialog.setOnDismissListener {
-            val musicEnabled = switchMusic.isChecked
-            val soundEnabled = switchSound.isChecked
-            // Save preferences (e.g., using SharedPreferences)
-        }
-
-        dialog.show()
     }
 
     private fun showToast(message: String) {
