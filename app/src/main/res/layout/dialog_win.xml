@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulations! You won!"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnNextLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Level"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnChapters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chapters"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"/>
+
+</LinearLayout>
