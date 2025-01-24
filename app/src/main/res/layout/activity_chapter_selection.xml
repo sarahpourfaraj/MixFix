@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +12,7 @@
         android:src="@drawable/stone_active"
         android:onClick="onChapterClicked"
         android:tag="1"
-    android:layout_margin="16dp"/>
+        android:layout_margin="16dp"/>
 
     <ImageView
         android:id="@+id/ivChapter2"
@@ -22,8 +21,43 @@
         android:src="@drawable/stone_inactive"
         android:onClick="onChapterClicked"
         android:tag="2"
-    android:layout_margin="16dp"/>
+        android:layout_margin="16dp"/>
 
+    <ImageView
+        android:id="@+id/ivChapter3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/stone_inactive"
+        android:onClick="onChapterClicked"
+        android:tag="3"
+        android:layout_margin="16dp"/>
+
+    <ImageView
+        android:id="@+id/ivChapter4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/stone_inactive"
+        android:onClick="onChapterClicked"
+        android:tag="4"
+        android:layout_margin="16dp"/>
+
+    <ImageView
+        android:id="@+id/ivChapter5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/stone_inactive"
+        android:onClick="onChapterClicked"
+        android:tag="5"
+        android:layout_margin="16dp"/>
+
+    <ImageView
+        android:id="@+id/ivChapter6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/stone_inactive"
+        android:onClick="onChapterClicked"
+        android:tag="6"
+        android:layout_margin="16dp"/>
 
     <Button
         android:id="@+id/btnTotalScore"
@@ -31,9 +65,7 @@
         android:layout_height="wrap_content"
         android:text="Show Total Score"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
-
-
-    <!-- Chapters 3, 4, and 5 -->
-
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"/>
 </LinearLayout>
