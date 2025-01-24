@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView // Add this import
+
 
 class LevelSelectionActivity : AppCompatActivity() {
 
@@ -27,8 +29,20 @@ class LevelSelectionActivity : AppCompatActivity() {
         displayLevels(levels)
     }
 
+
     private fun displayLevels(levels: List<Map<String, Any>>) {
         val container = findViewById<LinearLayout>(R.id.container)
+        container.removeAllViews() // Clear existing views
+
+        if (levels.isEmpty()) {
+            // Show a message or handle empty levels
+            val noLevelsText = TextView(this).apply {
+                text = "No levels available" // Set the text
+                textSize = 16f // Set the text size
+            }
+            container.addView(noLevelsText)
+            return
+        }
 
         for (level in levels) {
             val levelButton = Button(this).apply {
