@@ -19,10 +19,8 @@ class ChapterSelectionActivity : AppCompatActivity() {
 
         dbHelper = DatabaseHelper(this)
 
-        // Load chapter status from the database
         loadChapterStatus()
 
-        // Total Score Button
         val btnTotalScore: Button = findViewById(R.id.btnTotalScore)
         btnTotalScore.setOnClickListener {
             val totalScore = dbHelper.getTotalScore()
@@ -32,14 +30,17 @@ class ChapterSelectionActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadChapterStatus() // Refresh the chapter status when the activity resumes
+        loadChapterStatus()
     }
 
     private fun loadChapterStatus() {
         val chapters = dbHelper.getAllChapters()
         Log.d("ChapterSelectionActivity", "Chapters: $chapters")
 
-        for ((chapterId, isActive) in chapters) {
+        for (chapter in chapters) {
+            val chapterId = chapter["id"] as Long
+            val isActive = chapter["is_active"] as Boolean
+
             val imageView = findViewById<ImageView?>(resources.getIdentifier("ivChapter$chapterId", "id", packageName))
             imageView?.let {
                 if (isActive) {
@@ -54,10 +55,10 @@ class ChapterSelectionActivity : AppCompatActivity() {
     }
 
     fun onChapterClicked(view: View) {
-        val chapterId = view.tag.toString().toLong() // Convert to Long
+        val chapterId = view.tag.toString().toLong()
         Log.d("ChapterSelectionActivity", "Chapter clicked: $chapterId")
         val intent = Intent(this, LevelSelectionActivity::class.java)
-        intent.putExtra("CHAPTER_ID", chapterId) // Pass as Long
+        intent.putExtra("CHAPTER_ID", chapterId)
         startActivity(intent)
     }
 }
