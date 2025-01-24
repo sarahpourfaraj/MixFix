@@ -22,7 +22,7 @@ class ChapterSelectionActivity : AppCompatActivity() {
         // Load chapter status from the database
         loadChapterStatus()
 
-        // Add a button to show total score
+        // Total Score Button
         val btnTotalScore: Button = findViewById(R.id.btnTotalScore)
         btnTotalScore.setOnClickListener {
             val totalScore = dbHelper.getTotalScore()
@@ -40,13 +40,15 @@ class ChapterSelectionActivity : AppCompatActivity() {
         Log.d("ChapterSelectionActivity", "Chapters: $chapters")
 
         for ((chapterId, isActive) in chapters) {
-            val imageView = findViewById<ImageView>(resources.getIdentifier("ivChapter$chapterId", "id", packageName))
-            if (isActive) {
-                imageView.setImageResource(R.drawable.stone_active)
-                imageView.isEnabled = true
-            } else {
-                imageView.setImageResource(R.drawable.stone_inactive)
-                imageView.isEnabled = false
+            val imageView = findViewById<ImageView?>(resources.getIdentifier("ivChapter$chapterId", "id", packageName))
+            imageView?.let {
+                if (isActive) {
+                    it.setImageResource(R.drawable.stone_active)
+                    it.isEnabled = true
+                } else {
+                    it.setImageResource(R.drawable.stone_inactive)
+                    it.isEnabled = false
+                }
             }
         }
     }
