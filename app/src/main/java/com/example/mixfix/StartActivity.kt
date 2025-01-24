@@ -19,10 +19,10 @@ class StartActivity : AppCompatActivity() {
 
         Log.d("StartActivity", "StartActivity created")
 
+        // Start Button
         val btnStart: Button = findViewById(R.id.btnStart)
         btnStart.setOnClickListener {
             Log.d("StartActivity", "Start button clicked")
-            // Navigate to ChapterSelectionActivity instead of LevelSelectionActivity
             val intent = Intent(this, ChapterSelectionActivity::class.java)
             startActivity(intent)
         }
@@ -46,19 +46,19 @@ class StartActivity : AppCompatActivity() {
         val ivLinkedIn: ImageView = findViewById(R.id.ivLinkedIn)
 
         ivGitHub.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/yourusername"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/sarahpourfaraj"))
             startActivity(intent)
         }
 
         ivGmail.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:youremail@example.com")
+                data = Uri.parse("mailto:sarahpourfaraj@gmail.com")
             }
             startActivity(intent)
         }
 
         ivLinkedIn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/yourprofile"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/sarahpourfaraj"))
             startActivity(intent)
         }
     }
