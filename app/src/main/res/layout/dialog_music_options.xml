@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/dialog_background">
+    android:gravity="center">
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,4 +27,14 @@
         android:layout_height="48dp"
         android:text="Sound Effects"
         android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"/>
+
 </LinearLayout>
